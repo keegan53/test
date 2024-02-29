@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Prep/Clean up'){
-          steps{
-            sh 'docker prune container -f'
-          }
-        }
+        // stage('Prep/Clean up'){
+        //   steps{
+        //     sh 'docker prune container -f'
+        //   }
+        // }
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t myapp .'
