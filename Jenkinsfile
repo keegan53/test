@@ -8,7 +8,7 @@ pipeline {
     }
     stage(‘second stage’){
       steps {
-        sh “pwd”
+        sh “mkdir hellofile”
       }
  }
     stage(‘third stage’){
