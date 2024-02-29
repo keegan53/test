@@ -6,17 +6,17 @@ pipeline {
         sh "ls"
             }
     }
-    stage(‘second stage’){
+    stage('second stage'){
       steps {
         sh “mkdir hellofile”
       }
  }
-    stage(‘third stage’){
+    stage('third stage'){
       steps {
         sh “touch hello.txt”
       }
  }
-    stage(‘second stage’){
+    stage('4th stage'){
       steps {
         sh “mv hello.txt newhello.text”
       }
