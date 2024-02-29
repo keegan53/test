@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+        stage('Prep/Clean up'){
+          steps{
+            sh 'docker rm -f $(docker ps-aq)||tre'
+          }
+        }
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t myapp .'
@@ -21,16 +26,16 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            stage('Clean Up') {
-                steps {
-                    sh 'docker stop nginx'
-                    sh 'docker rm nginx'
-                    sh 'docker stop myapp-container'
-                    sh 'docker rm myapp-container'
-                }
-            }
-        }
-    }
-}
+//     post {
+//         always {
+//             stage('Clean Up') {
+//                 steps {
+//                     sh 'docker stop nginx'
+//                     sh 'docker rm nginx'
+//                     sh 'docker stop myapp-container'
+//                     sh 'docker rm myapp-container'
+//                 }
+//             }
+//         }
+//     }
+// }
