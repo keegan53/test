@@ -1,25 +1,36 @@
 pipeline {
-  agent any
-  stages {
-    stage('Pipeline Stages'){
-      steps {
-        sh "ls"
+    agent any
+
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t myapp .'
             }
+        }
+
+        stage('Deploy NGINX') {
+            steps {
+                sh 'docker run -d -p 80:80 --name nginx nginx:latest'
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                sh 'docker run -d --name myapp-container myapp'
+            }
+        }
     }
-    stage('second stage'){
-      steps {
-        sh “mkdir hellofile”
-      }
- }
-    stage('third stage'){
-      steps {
-        sh “touch hello.txt”
-      }
- }
-    stage('4th stage'){
-      steps {
-        sh “mv hello.txt newhello.text”
-      }
- }
-}
+
+    post {
+        always {
+            stage('Clean Up') {
+                steps {
+                    sh 'docker stop nginx'
+                    sh 'docker rm nginx'
+                    sh 'docker stop myapp-container'
+                    sh 'docker rm myapp-container'
+                }
+            }
+        }
+    }
 }
