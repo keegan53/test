@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Prep/Clean up'){
           steps{
-            sh 'docker rm -f $(docker ps-aq)||tre'
+            sh 'docker prune container -f'
           }
         }
         stage('Build Docker Image') {
