@@ -24,7 +24,13 @@ pipeline {
                 sh 'docker run -d --name myapp-container myapp'
             }
         }
+        stage('Display Running Containers') {
+            steps {
+                sh 'docker ps'
+            }
+        }
     }
+}
 
 //     post {
 //         always {
