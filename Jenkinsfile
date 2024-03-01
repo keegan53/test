@@ -27,17 +27,3 @@ pipeline {
         }
     }
 }
-
-//     post {
-//         always {
-//             stage('Clean Up') {
-//                 steps {
-//                     sh 'docker stop nginx'
-//                     sh 'docker rm nginx'
-//                     sh 'docker stop myapp-container'
-//                     sh 'docker rm myapp-container'
-//                 }
-//             }
-//         }
-//     }
-// }
