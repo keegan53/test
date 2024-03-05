@@ -1,0 +1,27 @@
+apiVersion: apps/v1 #version of k8s api to use - apps is a group of resources for deployment.
+kind: Deployment # Deployment resource object
+metadata:
+  name: nginx # name of deployment
+  labels:
+    app: ngnix
+spec:
+  replicas: 4 #optional and the default is 1
+  selector:
+    matchLabels:
+      app: nginx #specifies which pods are controlled by the deployment
+  strategy: #specifies the deployment strategy - otional default to the following...
+    rollingUpdate: # other strategy is recreate(tears down and rebuilds client would lose access/not good for production)
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: frontend
+          image: nginx:alpine
+    spec:
+      containers:
+        - name: backend
+          image: nginx:alpine

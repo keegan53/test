@@ -1,0 +1,18 @@
+{
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "terraform.languageServer.tcp.port": 0,
+    "files.autoSave": "afterDelay",
+    "remote.SSH.remotePlatform": {
+        "Nginxqa": "linux",
+        "FrontQALab": "linux",
+        "BackQALab": "linux",
+        "ProxyQALab": "linux",
+        "webQALab": "linux",
+        "Docker": "linux",
+        "Jenkins": "linux",
+        "Worker": "linux",
+        "Worker_Node": "linux",
+        "eks": "linux"
+    },
+    "git.confirmSync": false
+}

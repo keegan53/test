@@ -1,0 +1,8 @@
+apiVersion: apps/v1 #version of k8s api to use - apps is a group of resources for deployment.
+kind: Deployment # Deployment resource object
+metadata:
+  name: nginx # name of deployment
+  labels:
+    app: ngnix
+spec:
+  replicas: 4 #opio
