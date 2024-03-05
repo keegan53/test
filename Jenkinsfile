@@ -1,38 +1,17 @@
-pipeline {
+pipeline{
     agent any
-
-    stages {
-
-        stage('Set Up') {
-            steps {
-                sh 'docker rm -f $(docker ps -aq) || true'
-                sh 'docker network create mynetwork || true'
-            }
-        }
-        
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t myapp .'
-                sh 'docker build -t mynginx -f Dockerfile.nginx .'
-            }
-        }
-        
-        stage('Deploy Application') {
-            steps {
-                sh 'docker run -d --name flask-app --network mynetwork myapp'
-            }
-        }
-
-        stage('Deploy NGINX') {
-            steps {
-                sh 'docker run -d -p 80:80 --network mynetwork --name nginx mynginx'
-            }
-        }
-
-        stage('Display Running Containers') {
-            steps {
-                sh 'docker ps'
-            }
+        stages{
+            stage("k8s"){
+                steps{
+                    withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'cluster', contextName: '', credentialsId: 'credentials', namespace: 'default', serverUrl: 'https://40BEB49E6083C8C8EBEB9E43DF6294BB.gr7.eu-west-2.eks.amazonaws.com']]) 
+                    {
+                    sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
+                    sh 'chmod u+x ./kubectl'
+                    sh './kubectl get nodes'
+                    sh './kubectl create -f pod.yaml'
+                    sh './kubectl get pods'
+                    }
+                }    
         }
     }
 }
